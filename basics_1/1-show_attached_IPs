@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 # Displays all active IPv4 IPs on the machine
 
-echo "127.0.0.1"
-hostname -I | tr ' ' '\n' | grep -v '^$'
+if command -v ifconfig >/dev/null 2>&1; then
+    ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+else
+    hostname -I | tr ' ' '\n' | grep -v '^$' | tac
+    echo "127.0.0.1"
+fi
