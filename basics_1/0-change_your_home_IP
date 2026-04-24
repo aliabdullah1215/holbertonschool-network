@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Configures localhost and facebook.com IP resolution
+
+{
+  echo "127.0.0.2 localhost"
+  echo "8.8.8.8 facebook.com"
+  grep -v "localhost" /etc/hosts | grep -v "facebook.com"
+} > /tmp/hosts
+
+cat /tmp/hosts > /etc/hosts
